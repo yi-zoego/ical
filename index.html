@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心怡的課表</title>
+<link rel="icon" href="./logo2.ico" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --navy-mid: #243258;
+    --navy-light: #2e4070;
+    --gold: #b8976a;
+    --gold-light: #d4b48a;
+    --cream: #f5f0e8;
+    --cream-dark: #ede6d8;
+    --text-dark: #1a2744;
+    --text-mid: #3d4f6e;
+    --text-light: #7a8ba8;
+    --white: #ffffff;
+    --shadow: 0 2px 16px rgba(26,39,68,0.10);
+    --radius: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Header ── */
+  header {
+    background: var(--navy);
+    padding: 0 28px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 2px 12px rgba(26,39,68,0.18);
+    flex-shrink: 0;
+  }
+
+  .logo-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--navy);
+    flex-shrink: 0;
+  }
+
+  .logo{width: 35px;}
+
+  .header-text h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 2px;
+  }
+
+  .header-text p {
+    font-size: 11px;
+    color: var(--gold-light);
+    letter-spacing: 1px;
+    margin-top: 1px;
+  }
+
+  /* ── Main Layout ── */
+  .main {
+    display: flex;
+    flex: 1;
+    gap: 0;
+    overflow: hidden;
+    height: calc(100vh - 64px);
+  }
+
+  /* ── Left: Calendar ── */
+  .calendar-panel {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .calendar-panel iframe {
+    width: 100%;
+    height: 640px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    background: white;
+  }
+
+  /* ── Right: Course List ── */
+  .side-panel {
+    width: 33%;
+    min-width: 260px;
+    max-width: 380px;
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .side-header {
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--navy-light);
+    flex-shrink: 0;
+  }
+
+  .side-header h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+
+  .side-header .update-time {
+    font-size: 10px;
+    color: var(--text-light);
+    margin-top: 3px;
+  }
+
+  .side-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 0 8px;
+  }
+
+  .side-content::-webkit-scrollbar { width: 4px; }
+  .side-content::-webkit-scrollbar-track { background: transparent; }
+  .side-content::-webkit-scrollbar-thumb { background: var(--navy-light); border-radius: 2px; }
+
+  /* Group */
+  .group-block {
+    margin-bottom: 4px;
+  }
+
+  .group-title {
+    padding: 6px 20px 4px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    font-weight: 500;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .group-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--navy-light);
+  }
+
+  .company-row {
+    padding: 5px 20px 5px 24px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .company-name {
+    font-size: 13px;
+    color: var(--cream);
+    font-weight: 500;
+    white-space: nowrap;
+    min-width: 120px;
+    flex-shrink: 0;
+  }
+
+  .company-dates {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.6;
+    word-break: break-all;
+  }
+
+  .company-dates .future-date {
+    color: var(--gold-light);
+  }
+
+  .company-dates .past-date {
+    color: #5a6a88;
+  }
+
+  .seg-tag {
+    font-size: 9px;
+    opacity: 0.75;
+    margin-left: 1px;
+  }
+
+  /* Loading / Error */
+  .status-msg {
+    padding: 20px;
+    font-size: 12px;
+    color: var(--text-light);
+    text-align: center;
+  }
+
+  /* ── Memo Section ── */
+  .memo-section {
+    border-top: 1px solid var(--navy-light);
+    padding: 12px 20px 16px;
+    flex-shrink: 0;
+  }
+
+  .memo-title {
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .memo-list {
+    list-style: none;
+  }
+
+  .memo-list li {
+    font-size: 11px;
+    color: #7a8ba8;
+    padding: 2px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    line-height: 1.5;
+  }
+
+  .memo-list li::before {
+    content: '•';
+    color: var(--navy-light);
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo-circle"><img src="./logo.svg" alt="" class="logo"></div>
+  <div class="header-text">
+    <h1>心怡的課表</h1>
+    <p>呂心怡 ｜ zoego99@gmail.com｜ zoelu899@gmail.com</p>
+  </div>
+</header>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Left: Google Calendar -->
+  <div class="calendar-panel">
+    <iframe
+      src="https://calendar.google.com/calendar/embed?src=08f9a5f59b69b2ee7c77e95ab85bfc493cd104099f506884f840fae7dabebbca%40group.calendar.google.com&ctz=Asia%2FTaipei&hl=zh-TW"
+      frameborder="0"
+      scrolling="no"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <!-- Right: Course List -->
+  <div class="side-panel">
+    <div class="side-header">
+      <h2>課程彙整</h2>
+      <div class="update-time" id="updateTime">讀取中…</div>
+    </div>
+    <div class="side-content" id="courseList">
+      <div class="status-msg">載入課表資料中…</div>
+    </div>
+    <div class="memo-section">
+      <div class="memo-title">固定行程備忘</div>
+      <ul class="memo-list" id="memoList"></ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- Load config then app -->
+<script src="config.js"></script>
+<script>
+// ── Constants ──
+const CALENDAR_ID = '08f9a5f59b69b2ee7c77e95ab85bfc493cd104099f506884f840fae7dabebbca@group.calendar.google.com';
+
+// ── Helpers ──
+function today() {
+  const d = new Date();
+  d.setHours(0,0,0,0);
+  return d;
+}
+
+function parseICSDate(str) {
+  // YYYYMMDD or YYYYMMDDTHHmmssZ
+  if (!str) return null;
+  const s = str.replace('Z','').replace('T','');
+  const y = +s.slice(0,4), m = +s.slice(4,6)-1, d = +s.slice(6,8);
+  return new Date(y, m, d);
+}
+
+function formatDate(d) {
+  return `${d.getMonth()+1}/${d.getDate()}`;
+}
+
+// Parse title → { segment, company, handler } or null if should ignore
+function parseTitle(title) {
+  const inner = title.replace(/^【/, '').replace(/】$/, '');
+  const parts = inner.split('_');
+  if (parts.length < 2) return null;
+  const segment = parts[0].trim();
+  const company = parts[1].trim();
+  const handler = parts[2] ? parts[2].trim() : '';
+  // if (segment === '晚') return null;
+  if (inner.includes('1對1')) return null;
+  if (IGNORE_COMPANIES.includes(company)) return null;
+  return { segment, company, handler };
+}
+
+function matchGroup(handler) {
+  for (const g of GROUPS) {
+    if (handler.includes(g)) return g;
+  }
+  return null;
+}
+
+function isPhone(company) {
+  return company.startsWith('手機');
+}
+async function fetchEvents() {
+  const now = today();
+  const timeMin = new Date(now.getFullYear(), 0, 1).toISOString();
+  const timeMax = new Date(now.getFullYear(), 11, 31, 23, 59, 59).toISOString();
+  const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events`
+    + `?key=${API_KEY}`
+    + `&timeMin=${encodeURIComponent(timeMin)}`
+    + `&timeMax=${encodeURIComponent(timeMax)}`
+    + `&singleEvents=true&orderBy=startTime&maxResults=500&_t=${Date.now()}`;
+  const res = await fetch(url);
+  if (!res.ok) { const err = await res.json(); throw new Error(err.error?.message || 'API error'); }
+  const data = await res.json();
+  return data.items || [];
+}
+
+// ── Main Logic ──
+async function loadCourses() {
+  const listEl = document.getElementById('courseList');
+  const timeEl = document.getElementById('updateTime');
+
+  try {
+    const items = await fetchEvents();
+    const now = today();
+
+    const parsed = [];
+    for (const item of items) {
+      const title = (item.summary || '').trim();
+      const dateStr = item.start?.date || item.start?.dateTime || '';
+      if (!dateStr) continue;
+      const date = new Date(dateStr.slice(0,10).replace(/-/g,'/'));
+      if (isNaN(date)) continue;
+      const p = parseTitle(title);
+      if (!p) continue;
+      parsed.push({ ...p, date });
+    }
+
+    const companyMap = {};
+    for (const item of parsed) {
+      const key = item.company;
+      if (!companyMap[key]) {
+        let groupKey;
+        if (isPhone(item.company)) {
+          groupKey = '__phone__';
+        } else {
+          groupKey = matchGroup(item.handler) || '__other__';
+        }
+        companyMap[key] = { company: item.company, groupKey, entries: [] };
+      }
+      companyMap[key].entries.push({ date: item.date, segment: item.segment });
+    }
+
+    const active = Object.values(companyMap).filter(c => c.entries.some(e => e.date >= now));
+    active.forEach(c => c.entries.sort((a,b) => a.date - b.date));
+    active.sort((a,b) => a.entries[0].date - b.entries[0].date);
+
+    const groupOrder = [...GROUPS, '__phone__', '__other__'];
+    const grouped = {};
+    groupOrder.forEach(k => grouped[k] = []);
+    for (const c of active) {
+      if (grouped[c.groupKey] !== undefined) grouped[c.groupKey].push(c);
+    }
+
+    const segLabel = { '上': '上', '下': '下', '整': '整天', '整天': '整天' };
+    let html = '';
+
+    for (const gk of groupOrder) {
+      const companies = grouped[gk];
+      if (!companies.length) continue;
+
+      let label;
+      if (gk === '__phone__') label = '手機';
+      else if (gk === '__other__') label = '其他';
+      else label = GROUP_LABELS[gk] || gk;
+
+      html += `<div class="group-block"><div class="group-title">${label}</div>`;
+      for (const c of companies) {
+        const dateSpans = c.entries.map(e => {
+          const cls = e.date >= now ? 'future-date' : 'past-date';
+          const seg = segLabel[e.segment] || e.segment;
+          return `<span class="${cls}">${formatDate(e.date)}<span class="seg-tag">(${seg})</span></span>`;
+        }).join('<span style="color:#3a4a66"> · </span>');
+        html += `<div class="company-row"><span class="company-name">${c.company}</span><span class="company-dates">${dateSpans}</span></div>`;
+      }
+      html += `</div>`;
+    }
+
+    if (!html) html = '<div class="status-msg">目前無進行中課程</div>';
+    listEl.innerHTML = html;
+    const now2 = new Date();
+    timeEl.textContent = `更新：${now2.getMonth()+1}/${now2.getDate()} ${now2.getHours()}:${String(now2.getMinutes()).padStart(2,'0')}`;
+
+  } catch(e) {
+    listEl.innerHTML = `<div class="status-msg">⚠ 無法載入課表<br><small>${e.message}</small></div>`;
+    timeEl.textContent = '載入失敗';
+    console.error(e);
+  }
+}
+
+// ── Render Memo ──
+function renderMemo() {
+  const el = document.getElementById('memoList');
+  if (!MEMO || !MEMO.length) { el.parentElement.style.display = 'none'; return; }
+  el.innerHTML = MEMO.map(m => `<li>${m}</li>`).join('');
+}
+
+// ── Init ──
+renderMemo();
+loadCourses();
+</script>
+
+</body>
+</html>
