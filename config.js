@@ -1,9 +1,7 @@
 // ==========================================
 // 心怡課表設定檔 config.js
 // ==========================================
-
-// Google Calendar API Key
-const API_KEY = 'AIzaSyBO6Rc4dlEDQbCZNM_H63CfHTvxnVX8ecc';
+// ⚠️ 此檔案不含 API Key，Key 存放於 GitHub Secrets
 
 // 承辦人群組（順序就是顯示順序）
 const GROUPS = ["英俊", "歐", "Joanna", "怡平", "如意"];
