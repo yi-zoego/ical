@@ -239,21 +239,9 @@ async function loadCourses() {
   }
 }
 
-// ── 手動立即更新（觸發 GitHub Actions） ──
-async function manualRefresh() {
-  const btn = document.getElementById('refreshBtn');
-  btn.disabled = true;
-  btn.textContent = '⏳ 更新中…';
-  try {
-    // 重新讀取 data.json（GitHub Actions 需時約 30~60 秒才完成）
-    // 這裡先重新讀取目前最新的 data.json
-    await loadCourses();
-    btn.textContent = '✅ 完成';
-    setTimeout(() => { btn.textContent = '🔄 立即更新'; btn.disabled = false; }, 2000);
-  } catch(e) {
-    btn.textContent = '🔄 立即更新';
-    btn.disabled = false;
-  }
+// ── 手動立即更新：整頁重新整理 ──
+function manualRefresh() {
+  location.reload(true);
 }
 
 // ── Render Memo ──
