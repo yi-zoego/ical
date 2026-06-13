@@ -3,7 +3,7 @@
 // ==========================================
 
 // Google Calendar API Key
-const API_KEY = 'AIzaSyBwoiX4br9ZcC5fIBXGW3H_b7eeQ9D28wU';
+const API_KEY = 'AIzaSyBO6Rc4dlEDQbCZNM_H63CfHTvxnVX8ecc';
 
 // 承辦人群組（順序就是顯示順序）
 const GROUPS = ["英俊", "歐", "Joanna", "怡平", "如意"];
@@ -27,5 +27,3 @@ const MEMO = [
   "晚_北認 Office：6/27(六_Excel)、7/6(1,3,5_Excel)、8/6(2,4_PPT)",
   "整_新莊：6/28(日_AI24)、10/20(2,4_AI24)",
 ];
-
-// https://console.cloud.google.com/apis/credentials/key/682305ca-cf8a-4152-a2fb-6f5c95b149a4?project=ical-zoeclass
