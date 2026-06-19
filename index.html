@@ -173,7 +173,7 @@ async function loadCourses() {
   const listEl = document.getElementById('courseList');
   const timeEl = document.getElementById('updateTime');
   try {
-    const res = await fetch(`./data.json?_t=${Date.now()}`);
+    const res = await fetch(`./data.json?_t=${Date.now()}`, { cache: 'no-store' });
     if (!res.ok) throw new Error('data.json 尚未產生，請稍候');
     const json = await res.json();
 
