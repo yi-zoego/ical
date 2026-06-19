@@ -2,7 +2,7 @@ name: Fetch Calendar Data
 
 on:
   schedule:
-    - cron: '0 0,6,12,18 * * *'  # 每 6 小時執行一次（UTC時間，台灣+8）
+    - cron: '0 */2 * * *'  # 每 2 小時執行一次（UTC時間，台灣+8）
   workflow_dispatch:               # 允許手動觸發
 
 jobs:
