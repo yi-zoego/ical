@@ -107,50 +107,56 @@
 
   /* ── 手機版 ── */
   @media (max-width: 768px) {
+    html, body { height: 100%; overflow-x: hidden; }
+
     header { height: 52px; padding: 0 16px; }
     .header-text h1 { font-size: 14px; letter-spacing: 1px; }
     .header-text p { font-size: 10px; }
     .logo-circle { width: 34px; height: 34px; font-size: 14px; }
     .logo { width: 28px; }
 
+    body {
+      min-height: 100%;
+      height: auto;
+      overflow-y: auto;
+    }
+
     .main {
       flex-direction: column;
-      height: auto;
-      overflow: visible;
+      height: auto !important;
+      overflow: visible !important;
     }
 
     .calendar-panel {
       padding: 0;
-      height: calc(100vh - 52px);
+      width: 100%;
+      height: calc(100svh - 52px);
       flex-shrink: 0;
       overflow: hidden;
     }
 
     .calendar-panel iframe {
-      width: 100%;
-      height: 100%;
+      width: 100% !important;
+      height: 100% !important;
       border-radius: 0;
       box-shadow: none;
     }
 
     .side-panel {
-      width: 100%;
-      max-width: 100%;
+      width: 100% !important;
+      max-width: 100% !important;
       min-width: 0;
-      overflow: visible;
-      height: auto;
+      overflow: visible !important;
+      height: auto !important;
     }
 
     .side-content {
-      overflow: visible;
-      height: auto;
+      overflow: visible !important;
+      height: auto !important;
       padding: 8px 0 4px;
     }
 
-    .memo-section {
-      padding-bottom: 24px;
-    }
-
+    .memo-section { padding-bottom: 32px; }
     .company-name { min-width: 100px; }
   }
 </style>
