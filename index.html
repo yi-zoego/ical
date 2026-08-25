@@ -130,7 +130,7 @@
     .calendar-panel {
       padding: 0;
       width: 100%;
-      height: 100svh;
+      height: 100vh;
       flex-shrink: 0;
       overflow: hidden;
     }
@@ -311,6 +311,19 @@ function renderMemo() {
 
 renderMemo();
 loadCourses();
+
+// ── 手機版：動態設定日曆高度 ──
+function setMobileCalendarHeight() {
+  if (window.innerWidth <= 768) {
+    const panel = document.querySelector('.calendar-panel');
+    const iframe = document.querySelector('.calendar-panel iframe');
+    const h = window.innerHeight + 'px';
+    if (panel) panel.style.height = h;
+    if (iframe) iframe.style.height = h;
+  }
+}
+setMobileCalendarHeight();
+window.addEventListener('resize', setMobileCalendarHeight);
 </script>
 </body>
 </html>
