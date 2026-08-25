@@ -104,6 +104,53 @@
     display: flex; align-items: flex-start; gap: 6px; line-height: 1.5;
   }
   .memo-list li::before { content: '•'; color: var(--navy-light); flex-shrink: 0; }
+
+  /* ── 手機版 ── */
+  @media (max-width: 768px) {
+    header { height: 52px; padding: 0 16px; }
+    .header-text h1 { font-size: 14px; letter-spacing: 1px; }
+    .header-text p { font-size: 10px; }
+    .logo-circle { width: 34px; height: 34px; font-size: 14px; }
+    .logo { width: 28px; }
+
+    .main {
+      flex-direction: column;
+      height: auto;
+      overflow: visible;
+    }
+
+    .calendar-panel {
+      padding: 0;
+      height: 100vh;
+      flex-shrink: 0;
+    }
+
+    .calendar-panel iframe {
+      height: 100%;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .side-panel {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      overflow: visible;
+      height: auto;
+    }
+
+    .side-content {
+      overflow: visible;
+      height: auto;
+      padding: 8px 0 4px;
+    }
+
+    .memo-section {
+      padding-bottom: 24px;
+    }
+
+    .company-name { min-width: 100px; }
+  }
 </style>
 </head>
 <body>
