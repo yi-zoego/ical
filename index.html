@@ -121,11 +121,13 @@
 
     .calendar-panel {
       padding: 0;
-      height: 100vh;
+      height: calc(100vh - 52px);
       flex-shrink: 0;
+      overflow: hidden;
     }
 
     .calendar-panel iframe {
+      width: 100%;
       height: 100%;
       border-radius: 0;
       box-shadow: none;
