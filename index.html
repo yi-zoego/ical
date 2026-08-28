@@ -127,22 +127,27 @@
       overflow: visible !important;
     }
 
-    .calendar-panel {
-      padding: 0;
-      width: 100%;
-      height: 100vh;
-      flex-shrink: 0;
-      overflow: hidden;
-    }
+.calendar-panel {
+  padding: 0;
+  width: 100%;
+  height: calc(100vh - 52px);
+  height: calc(100dvh - 52px);
+  min-height: calc(100vh - 52px);
+  min-height: calc(100dvh - 52px);
+  flex-shrink: 0;
+  overflow: hidden;
+}
 
-    .calendar-panel iframe {
-      width: 100% !important;
-      height: 100% !important;
-      border-radius: 0;
-      box-shadow: none;
-    }
+.calendar-panel iframe {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
 
-    .side-panel {
+.side-panel {
       width: 100% !important;
       max-width: 100% !important;
       min-width: 0;
@@ -312,18 +317,6 @@ function renderMemo() {
 renderMemo();
 loadCourses();
 
-// ── 手機版：動態設定日曆高度 ──
-function setMobileCalendarHeight() {
-  if (window.innerWidth <= 768) {
-    const panel = document.querySelector('.calendar-panel');
-    const iframe = document.querySelector('.calendar-panel iframe');
-    const h = window.innerHeight + 'px';
-    if (panel) panel.style.height = h;
-    if (iframe) iframe.style.height = h;
-  }
-}
-setMobileCalendarHeight();
-window.addEventListener('resize', setMobileCalendarHeight);
 </script>
 </body>
 </html>
