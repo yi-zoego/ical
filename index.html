@@ -127,25 +127,34 @@
       overflow: visible !important;
     }
 
-.calendar-panel {
-  padding: 0;
-  width: 100%;
-  height: calc(100vh - 52px);
-  height: calc(100dvh - 52px);
-  min-height: calc(100vh - 52px);
-  min-height: calc(100dvh - 52px);
-  flex-shrink: 0;
-  overflow: hidden;
-}
+    .calendar-panel {
+      position: relative;
+      padding: 0 !important;
+      margin: 0;
+      width: 100%;
+      height: calc(100vh - 52px) !important;
+      height: calc(100dvh - 52px) !important;
+      min-height: calc(100vh - 52px) !important;
+      min-height: calc(100dvh - 52px) !important;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
 
-.calendar-panel iframe {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-}
+    .calendar-panel iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100% !important;
+      height: calc(100vh - 52px) !important;
+      height: calc(100dvh - 52px) !important;
+      min-height: calc(100vh - 52px) !important;
+      min-height: calc(100dvh - 52px) !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
 
 .side-panel {
       width: 100% !important;
